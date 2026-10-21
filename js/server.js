@@ -36,4 +36,4 @@ app.post("/products", (req, res) => {
   res.status(201).json({ status: "created", data: newP });
 });
 
-app.listen(3000, () => console.log("http://localhost:3000/products"));
+app.listen(3001, () => console.log("http://localhost:3000/products"));

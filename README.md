@@ -1,4 +1,4 @@
-# 🌐 Same API, 4 Languages, Hosted on the Internet
+# 🌐 The "Zero to Internet" Hack: Host a Website for FREE (No Public IP Needed)
 
 Companion repository for the YouTube video:
 
@@ -13,8 +13,7 @@ If you can host one of these, you can host **all four** — and by extension, al
 ---
 
 ## 📁 Project Structure
-
-@@@text
+```
 .
 ├── python/
 │   └── server.py              # Flask server (port 3000)
@@ -28,8 +27,7 @@ If you can host one of these, you can host **all four** — and by extension, al
 │   └── pom.xml
 └── frontend/
     └── index.html             # Static HTML frontend
-@@@
-
+```
 ---
 
 ## 🔌 API Endpoints (identical in all 4 languages)
@@ -42,7 +40,6 @@ If you can host one of these, you can host **all four** — and by extension, al
 
 Every response follows the same shape:
 
-@@@json
 {
   "status": "success",
   "count": 5,
@@ -62,7 +59,6 @@ Every response follows the same shape:
     }
   ]
 }
-@@@
 
 ---
 
@@ -85,7 +81,6 @@ The HTML frontend has **no extra installation** — it's served with Python's bu
 
 ### Run any one backend
 
-@@@bash
 # 🐍 Python — port 3000
 cd python && pip install flask && python server.py
 
@@ -96,44 +91,35 @@ cd node && npm install && node server.js
 cd go && go run main.go
 
 # ☕ Java — port 3003
-cd java && mvn clean install && mvn spring-boot:run
-@@@
+cd java && mvn clean install && mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=3003
 
 ### Run the frontend
 
-@@@bash
 cd frontend
 python -m http.server 5500
-@@@
 
 ### Open in browser
 
-@@@text
 Python    → http://localhost:3000/products
 Node      → http://localhost:3001/products
 Go        → http://localhost:3002/products
 Java      → http://localhost:3003/products
 Frontend  → http://localhost:5500
-@@@
 
 ---
 
 ## 🐍 1. Python (Flask) — port `3000`
 
 **Install & run:**
-
-@@@bash
+```
 cd python
 pip install flask
 python server.py
-@@@
-
+```
 **Test:**
 
-@@@bash
 curl http://localhost:3000/products
 curl http://localhost:3000/products/3
-@@@
 
 Open → [http://localhost:3000/products](http://localhost:3000/products)
 
@@ -142,19 +128,15 @@ Open → [http://localhost:3000/products](http://localhost:3000/products)
 ## 🟨 2. JavaScript (Node + Express) — port `3001`
 
 **Install & run:**
-
-@@@bash
+```
 cd node
 npm install
 node server.js
-@@@
-
+```
 **Test:**
 
-@@@bash
 curl http://localhost:3001/products
 curl http://localhost:3001/products/5
-@@@
 
 Open → [http://localhost:3001/products](http://localhost:3001/products)
 
@@ -163,18 +145,14 @@ Open → [http://localhost:3001/products](http://localhost:3001/products)
 ## 🐹 3. Go (stdlib `net/http`) — port `3002`
 
 **Run (no packages to install — pure standard library):**
-
-@@@bash
+```
 cd go
 go run main.go
-@@@
-
+```
 **Test:**
 
-@@@bash
 curl http://localhost:3002/products
 curl http://localhost:3002/products/2
-@@@
 
 Open → [http://localhost:3002/products](http://localhost:3002/products)
 
@@ -185,19 +163,15 @@ Open → [http://localhost:3002/products](http://localhost:3002/products)
 ## ☕ 4. Java (Spring Boot) — port `3003`
 
 **Build & run:**
-
-@@@bash
+```
 cd java
 mvn clean install
-mvn spring-boot:run
-@@@
-
+mvn spring-boot:run -Dspring-boot.run.arguments=--server.port=3003
+```
 **Test:**
 
-@@@bash
 curl http://localhost:3003/products
 curl http://localhost:3003/products/1
-@@@
 
 Open → [http://localhost:3003/products](http://localhost:3003/products)
 
@@ -210,24 +184,20 @@ Open → [http://localhost:3003/products](http://localhost:3003/products)
 A simple `index.html` that fetches products from one of the four backends and renders them as cards.
 
 **Serve it with Python's built-in HTTP server:**
-
-@@@bash
+```
 cd frontend
 python -m http.server 5500
-@@@
-
+```
 Open → [http://localhost:5500](http://localhost:5500)
 
 > ⚠️ **Important:** Because each backend runs on a different port, the frontend
 > needs to know which one to call. Open `frontend/index.html` and update the
 > `API_BASE` variable at the top of the `<script>` tag:
 >
-> @@@javascript
 > const API_BASE = "http://localhost:3000";  // 🐍 Python
 > // const API_BASE = "http://localhost:3001";  // 🟨 Node
 > // const API_BASE = "http://localhost:3002";  // 🐹 Go
 > // const API_BASE = "http://localhost:3003";  // ☕ Java
-> @@@
 
 ---
 
@@ -235,7 +205,6 @@ Open → [http://localhost:5500](http://localhost:5500)
 
 Any of the four servers responds to the same POST — just change the port:
 
-@@@bash
 curl -X POST http://localhost:3000/products \
   -H "Content-Type: application/json" \
   -d '{
@@ -244,11 +213,9 @@ curl -X POST http://localhost:3000/products \
     "price": 1499,
     "tags": ["audio", "portable"]
   }'
-@@@
 
 Response:
 
-@@@json
 {
   "status": "created",
   "data": {
@@ -264,7 +231,6 @@ Response:
     "tags": ["audio", "portable"]
   }
 }
-@@@
 
 Then refresh `/products` — you'll see **6 products** instead of 5. ✅
 
