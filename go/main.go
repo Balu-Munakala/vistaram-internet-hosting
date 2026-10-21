@@ -65,5 +65,5 @@ func main() {
 		writeJSON(w, http.StatusNotFound, map[string]string{"status": "error", "message": "not found"})
 	})
 
-	http.ListenAndServe(":3000", nil)
+	http.ListenAndServe(":3002", nil)
 }
